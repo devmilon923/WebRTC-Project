@@ -7,27 +7,21 @@ const peerIdDisplay = document.getElementById("displayPeerID");
 // Once the peer object is created, it will provide a unique ID for this peer
 peer.on("open", (id) => {
   peerIdDisplay.innerText = id; // Display the unique ID on the page
-  console.log("My peer ID is:", id); // Logs the unique ID generated for this peer
 });
 
 // Function to initiate a call to another peer (pass the target peer ID)
 function makeCall(peerId) {
-  // Request access to the local media devices (camera & microphone)
   navigator.mediaDevices
     .getUserMedia({ video: true, audio: true })
     .then((stream) => {
-      // Once access is granted, we get the video/audio stream
-      const myVideo = document.getElementById("myVideo"); // Get the video element for local video
+      const myVideo = document.getElementById("myVideo"); 
       console.log(stream)
-      myVideo.srcObject = stream; // Assign the stream to the local video element
+      myVideo.srcObject = stream;
 
-      // Make a call to another peer by using the peer's ID and the stream
       const call = peer.call(peerId, stream);
-
-      // When the peer responds with their stream, display it on the peer's video element
       call.on("stream", (peerStream) => {
-        const peerVideo = document.getElementById("peerVideo"); // Get the video element for remote peer
-        peerVideo.srcObject = peerStream; // Assign the incoming peer's stream to the video element
+        const peerVideo = document.getElementById("peerVideo"); 
+        peerVideo.srcObject = peerStream;
       });
 
       // Handle call error
@@ -37,7 +31,7 @@ function makeCall(peerId) {
       });
     })
     .catch((error) => {
-      console.error("Error accessing media devices:", error); // If there's an error accessing camera/microphone
+      console.error("Error accessing media devices:", error); 
       alert(
         "Unable to access camera and microphone. Please check permissions."
       );
@@ -74,9 +68,7 @@ buttton.addEventListener("click", () => {
 peer.on("call", (call) => {
   alert("Incoming call from: " + call.peer);
 
-  // console.log();
 
-  // When a call is received, answer it with the local stream (video/audio)
   navigator.mediaDevices
     .getUserMedia({ video: true, audio: true })
     .then((stream) => {
@@ -89,9 +81,8 @@ peer.on("call", (call) => {
       call.on("stream", (peerStream) => {
         const peerVideo = document.getElementById("peerVideo");
         const myVideo = document.getElementById("myVideo"); // Get the video element for local video
-        console.log(stream)
-        myVideo.srcObject = stream; // Assign the stream to the local video 
-        peerVideo.srcObject = peerStream; // Set the remote stream to the peer's video element
+        myVideo.srcObject = stream;
+        peerVideo.srcObject = peerStream; 
       });
 
       // Handle call error
