@@ -18,6 +18,7 @@ function makeCall(peerId) {
     .then((stream) => {
       // Once access is granted, we get the video/audio stream
       const myVideo = document.getElementById("myVideo"); // Get the video element for local video
+      console.log(stream)
       myVideo.srcObject = stream; // Assign the stream to the local video element
 
       // Make a call to another peer by using the peer's ID and the stream
@@ -71,7 +72,9 @@ buttton.addEventListener("click", () => {
 
 // Event listener for incoming calls from other peers
 peer.on("call", (call) => {
-  console.log("Incoming call from: ", call.peer);
+  alert("Incoming call from: " + call.peer);
+
+  // console.log();
 
   // When a call is received, answer it with the local stream (video/audio)
   navigator.mediaDevices
@@ -85,6 +88,9 @@ peer.on("call", (call) => {
       // When the peer responds with their media stream, display it
       call.on("stream", (peerStream) => {
         const peerVideo = document.getElementById("peerVideo");
+        const myVideo = document.getElementById("myVideo"); // Get the video element for local video
+        console.log(stream)
+        myVideo.srcObject = stream; // Assign the stream to the local video 
         peerVideo.srcObject = peerStream; // Set the remote stream to the peer's video element
       });
 
