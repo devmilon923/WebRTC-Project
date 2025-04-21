@@ -1,14 +1,15 @@
 // Create a new PeerJS object, which will handle the connection
 const peer = new Peer(); // Creates a new Peer instance
-
+const buttton = document.getElementById("makeCallBtn");
+const inputBox = document.getElementById("peerInputBox");
+const peerIdDisplay = document.getElementById("displayPeerID");
 // Once the peer object is created, it will provide a unique ID for this peer
 peer.on("open", (id) => {
+  peerIdDisplay.innerText = id;
   console.log("My peer ID is:", id); // Logs the unique ID generated for this peer
   // This ID can be shared with another peer to establish a connection
   // For example, you could store this ID in your database or send it to the other peer via signaling
 });
-const buttton = document.getElementById("makeCallBtn");
-const inputBox = document.getElementById("peerInputBox");
 
 // Function to initiate a call to another peer (pass the target peer ID)
 function makeCall(peerId) {
